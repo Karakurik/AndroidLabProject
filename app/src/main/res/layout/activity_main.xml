@@ -6,240 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintStart_toStartOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/username"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="insaf_id1"
-                app:layout_constraintEnd_toStartOf="@id/addMedia"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:textSize="19sp"/>
-
-            <ImageButton
-                android:id="@+id/addMedia"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginLeft="220dp"
-                app:layout_constraintStart_toEndOf="@id/username"
-                app:layout_constraintEnd_toStartOf="@id/menu"
-                android:src="@drawable/ic_add"/>
-
-            <ImageButton
-                android:id="@+id/menu"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                app:layout_constraintStart_toEndOf="@id/addMedia"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:src="@drawable/ic_more"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/ava_and_subs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
-        <ImageView
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            android:id="@+id/avatarka"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:src="@drawable/ic_avatarka"
-            app:layout_constraintLeft_toLeftOf="parent"
-            tools:ignore="MissingConstraints,NotSibling" />
-        <TextView
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            android:id="@+id/countOfPosts"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="33"
-            android:textSize="18sp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toEndOf="@id/avatarka"
-            app:layout_constraintEnd_toStartOf="@id/countOfSubscriberes"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/posts"
-            />
-        <TextView
-            android:id="@+id/posts"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:text="Посты"
-            android:textSize="18sp"
-            android:layout_marginStart="-20dp"
-            app:layout_constraintTop_toBottomOf="@id/countOfPosts"
-            app:layout_constraintStart_toStartOf="@id/countOfPosts"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-        <TextView
-            android:id="@+id/countOfSubscriberes"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/countOfPosts"
-            app:layout_constraintEnd_toStartOf="@id/count_of_subscriptions"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/subscriberes"
-            android:layout_marginStart="50dp"
-            android:textSize="18sp"
-            android:text="433"
-            />
-        <TextView
-            android:id="@+id/subscriberes"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/countOfSubscriberes"
-            app:layout_constraintStart_toStartOf="@id/countOfSubscriberes"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textSize="18sp"
-            android:text="Подписчики"
-            android:layout_marginStart="-40dp"
-            />
-        <TextView
-            android:id="@+id/count_of_subscriptions"
-            app:layout_constraintVertical_chainStyle="packed"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="@id/countOfSubscriberes"
-            app:layout_constraintBottom_toTopOf="@id/subscriptions"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="50dp"
-            android:textSize="18sp"
-            android:text="600"
-            />
-        <TextView
-            android:id="@+id/subscriptions"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/count_of_subscriptions"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/count_of_subscriptions"
-            android:textSize="18sp"
-            android:text="Подписки"
-            android:layout_marginStart="-30dp"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_constraintTop_toBottomOf="@id/ava_and_subs"
-        android:text="ОПИСАНИЕ"
-        android:padding="20dp" />
-    <Button
-        app:layout_constraintHorizontal_chainStyle="spread"
-        android:id="@+id/btn_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Редактировать"
-        android:background=""
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_advert"/>
-    <Button
-        android:id="@+id/btn_advert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Реклама"
-        android:background=""
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/btn_edit"
-        app:layout_constraintTop_toTopOf="@id/btn_edit"
-        app:layout_constraintEnd_toStartOf="@id/btn_statistics"/>
-    <Button
-        android:id="@+id/btn_statistics"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Статистика"
-        android:background=""
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@id/btn_advert"
-        app:layout_constraintTop_toTopOf="@id/btn_edit"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <ImageButton
-        android:id="@+id/im_btn_all_media"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_all_media"
-        app:layout_constraintTop_toBottomOf="@id/btn_edit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/im_btn_marks"/>
-    <ImageButton
-        android:id="@+id/im_btn_marks"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_avatarka"
-        app:layout_constraintTop_toBottomOf="@id/btn_edit"
-        app:layout_constraintStart_toEndOf="@id/im_btn_all_media"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <androidx.recyclerview.widget.RecyclerView
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toStartOf="@id/navbar_btn_home"
         app:layout_constraintBottom_toTopOf="@+id/navbar_btn_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/im_btn_all_media"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        app:layout_constraintHorizontal_chainStyle="spread"
         android:id="@+id/navbar_btn_home"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_home"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/navbar_btn_search"/>
+        app:layout_constraintEnd_toStartOf="@id/navbar_btn_search"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frame_layout" />
+
     <ImageButton
         android:id="@+id/navbar_btn_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_search"
         app:layout_constraintBottom_toBottomOf="@id/navbar_btn_home"
-        app:layout_constraintStart_toEndOf="@id/navbar_btn_home"
-        app:layout_constraintEnd_toStartOf="@id/navbar_btn_reels"/>
+        app:layout_constraintEnd_toStartOf="@id/navbar_btn_reels"
+        app:layout_constraintStart_toEndOf="@id/navbar_btn_home" />
+
     <ImageButton
         android:id="@+id/navbar_btn_reels"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_reels"
         app:layout_constraintBottom_toBottomOf="@id/navbar_btn_home"
-        app:layout_constraintStart_toEndOf="@id/navbar_btn_search"
-        app:layout_constraintEnd_toStartOf="@id/navbar_btn_like"/>
+        app:layout_constraintEnd_toStartOf="@id/navbar_btn_like"
+        app:layout_constraintStart_toEndOf="@id/navbar_btn_search" />
+
     <ImageButton
         android:id="@+id/navbar_btn_like"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_like"
         app:layout_constraintBottom_toBottomOf="@id/navbar_btn_home"
-        app:layout_constraintStart_toEndOf="@id/navbar_btn_reels"
-        app:layout_constraintEnd_toStartOf="@id/navbar_btn_profile"/>
+        app:layout_constraintEnd_toStartOf="@id/navbar_btn_profile"
+        app:layout_constraintStart_toEndOf="@id/navbar_btn_reels" />
+
     <ImageButton
         android:id="@+id/navbar_btn_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_avatarka"
+        app:layout_constraintBottom_toBottomOf="@id/navbar_btn_home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/navbar_btn_like"
-        app:layout_constraintBottom_toBottomOf="@id/navbar_btn_home"/>
-
-
-
+        app:layout_constraintStart_toEndOf="@id/navbar_btn_like" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
