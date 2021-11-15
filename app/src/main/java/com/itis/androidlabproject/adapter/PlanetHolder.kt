@@ -1,32 +1,45 @@
-package com.itis.androidlabproject.adapters
+package com.itis.androidlabproject.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Priority
 import com.bumptech.glide.RequestManager
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.itis.androidlabproject.databinding.ItemPlanetBinding
-import com.itis.androidlabproject.models.Planet
+import com.itis.androidlabproject.model.Planet
 
 class PlanetHolder(
     private val binding: ItemPlanetBinding,
-    private val action: (Int) -> Unit,
-    private val glige: RequestManager
+    private val glige: RequestManager,
+    private val action: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     private var planet: Planet? = null
 
+    private val options = RequestOptions()
+        .priority(Priority.HIGH)
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
+
     init {
         itemView.setOnClickListener {
-            planet?.id?.also(action)
+            planet?.run {
+                action(this.id)
+            }
         }
     }
 
+    @SuppressLint("SetTextI18n")
     fun bind(item: Planet) {
         this.planet = item
         with(binding) {
-            tvName.text = item.name
-            tvAge.text = item.age.toString()
-            tvDescription.text = item.description
-            glige.load(item.imageUrl).into(ivImage)
+            tvDetName.text = item.name
+            tvNumberOfSatellite.text = "Количество спутников: ${item.numberOfSatellite}"
+
+            glige.load(item.url)
+                .apply(options)
+                .into(ivImage)
         }
     }
 
@@ -41,8 +54,8 @@ class PlanetHolder(
                 parent,
                 false
             ),
-            action,
-            glige
+            glige,
+            action
         )
     }
 }
