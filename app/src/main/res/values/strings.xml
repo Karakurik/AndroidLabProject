@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidLabProject</string>
+    <string name="planet_name">Название планеты</string>
+    <string name="planet_number_of_satellite">Количество спутников</string>
 </resources>
