@@ -1,8 +1,10 @@
 package com.itis.androidlabproject.repository
 
+import android.media.Image
 import com.itis.androidlabproject.model.Planet
 
 object PlanetRepository {
+    var autoUrl = "https://cosmos.agency/wp-content/uploads/2015/08/pluto_heart_colored.png"
     var autoIncId = 0;
     val planets = arrayListOf(
         Planet(
@@ -77,5 +79,28 @@ object PlanetRepository {
 
     fun getPlanetById(id: Int): Planet {
         return this.planets[id]
+    }
+
+    fun delete(id: Int) {
+        planets.removeAt(id)
+    }
+
+    fun delete(planet: Planet?) {
+        planets.remove(planet)
+    }
+
+    fun getIndex(planet: Planet) : Int {
+        return planets.indexOf(planet)
+    }
+
+    fun add(pos: Int?, name: String, numberOfSatellite: Int, description: String) {
+        if (pos == null || pos > planets.size || pos < 0) {
+            planets.add(Planet(autoIncId++, name, numberOfSatellite, autoUrl, description))
+        } else update(pos, name, description)
+    }
+
+    fun update(pos: Int, name: String, description: String) {
+        planets[pos].name = name
+        planets[pos].description = description
     }
 }

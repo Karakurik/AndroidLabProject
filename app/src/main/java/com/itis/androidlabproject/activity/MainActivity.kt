@@ -3,6 +3,7 @@ package com.itis.androidlabproject.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.ui.setupWithNavController
 import com.itis.androidlabproject.R
 import com.itis.androidlabproject.databinding.ActivityMainBinding
 import com.itis.androidlabproject.extension.findNavController
@@ -18,5 +19,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController = findNavController(R.id.fragment_container)
+
+        binding.btnNavView.setupWithNavController(navController)
     }
 }

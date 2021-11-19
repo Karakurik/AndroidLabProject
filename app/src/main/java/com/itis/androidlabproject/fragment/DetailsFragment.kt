@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.itis.androidlabproject.R
 import com.itis.androidlabproject.databinding.FragmentDetailsBinding
 import com.itis.androidlabproject.model.Planet
 import com.itis.androidlabproject.repository.PlanetRepository
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(R.layout.fragment_details) {
     private lateinit var binding: FragmentDetailsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

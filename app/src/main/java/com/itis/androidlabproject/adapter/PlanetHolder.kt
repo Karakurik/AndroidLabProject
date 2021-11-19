@@ -1,6 +1,7 @@
 package com.itis.androidlabproject.adapter
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,10 +11,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.itis.androidlabproject.databinding.ItemPlanetBinding
 import com.itis.androidlabproject.model.Planet
+import com.itis.androidlabproject.repository.PlanetRepository
 
 class PlanetHolder(
     private val binding: ItemPlanetBinding,
-    private val glige: RequestManager,
+    private val glide: RequestManager,
     private val action: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     private var planet: Planet? = null
@@ -22,13 +24,13 @@ class PlanetHolder(
         .priority(Priority.HIGH)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
 
-    init {
-        itemView.setOnClickListener {
-            planet?.run {
-                action(this.id)
-            }
-        }
-    }
+//    init {
+//        itemView.setOnClickListener {
+//            planet?.run {
+//                action(this.id)
+//            }
+//        }
+//    }
 
     @SuppressLint("SetTextI18n")
     fun bind(item: Planet) {
@@ -37,16 +39,40 @@ class PlanetHolder(
             tvDetName.text = item.name
             tvNumberOfSatellite.text = "Количество спутников: ${item.numberOfSatellite}"
 
-            glige.load(item.url)
+            glide.load(item.url)
                 .apply(options)
                 .into(ivImage)
+
+            btnDelete.setOnClickListener {
+                action(PlanetRepository.getIndex(item))
+            }
         }
+    }
+
+    fun updateFields(bundle: Bundle) {
+        bundle.run {
+            getString("NAME")?.also {
+                updateName(it)
+            }
+            getInt("NUMBER_OF_SATELLITE").also {
+                updateNumberOfSatellite(it)
+            }
+        }
+    }
+
+    fun updateName(newName: String) {
+        binding.tvDetName.text = newName
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun updateNumberOfSatellite(newNumberOfSatellite: Int) {
+        binding.tvNumberOfSatellite.text = "Количество спутников: $newNumberOfSatellite"
     }
 
     companion object {
         fun create(
             parent: ViewGroup,
-            glige: RequestManager,
+            glide: RequestManager,
             action: (Int) -> Unit
         ) = PlanetHolder(
             ItemPlanetBinding.inflate(
@@ -54,7 +80,7 @@ class PlanetHolder(
                 parent,
                 false
             ),
-            glige,
+            glide,
             action
         )
     }
