@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/trackListFragment">
+
+    <fragment
+        android:id="@+id/trackListFragment"
+        android:name="com.itis.androidlabproject.fragments.TrackListFragment"
+        android:label="TrackListFragment"
+        tools:layout="@layout/fragment_track_list">
+        <action
+            android:id="@+id/action_trackListFragment_to_trackDetailsFragment"
+            app:destination="@id/trackDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackDetailsFragment"
+        android:name="com.itis.androidlabproject.fragments.TrackDetailsFragment"
+        android:label="TrackDetailsFragment"
+        tools:layout="@layout/fragment_track_details">
+        <action
+            android:id="@+id/action_trackDetailsFragment_to_trackListFragment"
+            app:destination="@id/trackListFragment" />
+    </fragment>
+</navigation>

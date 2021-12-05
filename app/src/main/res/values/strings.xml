@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">AndroidLabProject</string>
+    <string name="app_name">Media Player</string>
+    <string name="default_title">Default Title</string>
+    <string name="default_author">Default Author</string>
 </resources>
