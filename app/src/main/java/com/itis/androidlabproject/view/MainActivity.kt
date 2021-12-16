@@ -1,7 +1,8 @@
-package com.itis.androidlabproject
+package com.itis.androidlabproject.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.itis.androidlabproject.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
