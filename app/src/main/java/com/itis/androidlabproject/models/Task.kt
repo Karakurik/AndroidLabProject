@@ -3,9 +3,10 @@ package com.itis.androidlabproject.models
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
-@Entity
-class Todo(
+@Entity(tableName = "task")
+class Task(
     @PrimaryKey(autoGenerate = true)
     var id: Int?,
 
@@ -15,6 +16,12 @@ class Todo(
     @ColumnInfo(name = "description")
     var description: String?,
 
-    @ColumnInfo(name = "timestamp")
-    var timestamp: Long?
+    @ColumnInfo(name = "date")
+    var date: Date?,
+
+    @ColumnInfo(name = "longitude")
+    var longitude: Double?,
+
+    @ColumnInfo(name = "latitude")
+    var latitude: Double?
 )

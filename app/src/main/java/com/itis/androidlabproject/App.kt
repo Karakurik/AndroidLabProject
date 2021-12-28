@@ -3,11 +3,11 @@ package com.itis.androidlabproject
 import android.app.Application
 import androidx.room.Room
 import com.itis.androidlabproject.data.AppDatabase
-import com.itis.androidlabproject.data.dao.TodoDao
+import com.itis.androidlabproject.data.dao.TaskDao
 
 class App : Application() {
     lateinit var database: AppDatabase
-    lateinit var todoDao: TodoDao
+    lateinit var taskDao: TaskDao
 
     companion object {
         private lateinit var instance: App
@@ -28,6 +28,6 @@ class App : Application() {
             allowMainThreadQueries()
             build()
         }
-        todoDao = database.todoDao()
+        taskDao = database.taskDao()
     }
 }
