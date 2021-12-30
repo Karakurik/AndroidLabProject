@@ -25,7 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context?) = Companion.instance ?: synchronized(LOCK) {
+        operator fun invoke(context: Context) = Companion.instance ?: synchronized(LOCK) {
             buildDatabase(context)
         }
 

@@ -286,6 +286,7 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_details_task) {
 
     override fun onDestroy() {
         super.onDestroy()
+        scope.cancel()
         binding = null
         database = null
     }
