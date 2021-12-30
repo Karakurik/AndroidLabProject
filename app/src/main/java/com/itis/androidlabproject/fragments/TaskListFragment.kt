@@ -15,12 +15,15 @@ import com.itis.androidlabproject.data.AppDatabase
 import com.itis.androidlabproject.databinding.FragmentTaskListBinding
 import com.itis.androidlabproject.item_decorator.SpaceItemDecorator
 import com.itis.androidlabproject.models.Task
+import kotlinx.coroutines.*
 
 class TaskListFragment : Fragment(R.layout.fragment_task_list) {
     private var binding: FragmentTaskListBinding? = null
     private var database: AppDatabase? = null
     private var taskAdapter: TaskAdapter? = null
     private var tasks: List<Task>? = null
+
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onViewCreated(
         view: View,
@@ -61,19 +64,44 @@ class TaskListFragment : Fragment(R.layout.fragment_task_list) {
     }
 
     private fun deleteAllTasks() {
-        database?.taskDao()?.deleteAllTasks()
-        updateTasks()
+        scope.launch {
+            withContext(Dispatchers.IO) {
+                database?.taskDao()?.deleteAllTasks()
+            }
+            updateTasks()
+        }
         showMessage("Задачи удалены")
     }
 
     private fun deleteTask(id: Int) {
-        database?.taskDao()?.deleteTaskById(id)
-        updateTasks()
+        scope.launch {
+            withContext(Dispatchers.IO) {
+                database?.taskDao()?.deleteTaskById(id)
+            }
+            updateTasks()
+        }
         showMessage("Задача удалена")
     }
 
-    private fun updateTasks() {
-        tasks = database?.taskDao()?.getAll()
+    private suspend fun updateTasks() {
+        tasks = scope.async {
+            withContext(Dispatchers.IO) {
+                database?.taskDao()?.getAll()
+            }
+        }.await()
+
+        /*tasks = withContext(scope.coroutineContext) {
+            withContext(Dispatchers.IO) {
+                database?.taskDao()?.getAll()
+            }
+        }*/
+
+        /*scope.launch {
+            withContext(Dispatchers.IO) {
+                tasks = database?.taskDao()?.getAll()
+            }
+        }*/
+
         binding?.apply {
             if (tasks.isNullOrEmpty()) {
                 rvTasks.visibility = View.GONE

@@ -22,6 +22,7 @@ import com.itis.androidlabproject.fragments.date_picker.DatePickerFragment
 import com.itis.androidlabproject.models.DateToStringConverter
 import com.itis.androidlabproject.models.Task
 import com.itis.androidlabproject.view.MainActivity
+import kotlinx.coroutines.*
 import java.util.*
 
 class TaskDetailsFragment : Fragment(R.layout.fragment_details_task) {
@@ -30,6 +31,8 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_details_task) {
     private var client: FusedLocationProviderClient? = null
     private var calendar: Calendar? = null
     private var currentTaskId: Int? = null
+
+    private var scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,12 +146,18 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_details_task) {
     private fun checkIfTaskExists() {
         arguments?.getInt("ARG_TASK_ID")?.let {
             currentTaskId = it
-            setTaskEditingView(it)
+            scope.launch {
+                setTaskEditingView(it)
+            }
         }
     }
 
-    private fun setTaskEditingView(id: Int) {
-        val task = database?.taskDao()?.findById(id)
+    private suspend fun setTaskEditingView(id: Int) {
+        val task = scope.async {
+            withContext(Dispatchers.IO) {
+                database?.taskDao()?.findById(id)
+            }
+        }.await()
         binding?.apply {
             etTitle.setText(task?.title)
             etDesc.setText(task?.description)
@@ -190,7 +199,9 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_details_task) {
             addTask()
         } else {
             currentTaskId?.let {
-                updateTask(it)
+                scope.launch {
+                    updateTask(it)
+                }
             }
         }
         returnToTaskListFragment()
@@ -198,23 +209,31 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_details_task) {
 
     private fun addTask() {
         binding?.apply {
-            database?.taskDao()?.insert(
-                Task(
-                    null,
-                    etTitle.text.toString(),
-                    etDesc.text.toString(),
-                    calendar?.time,
-                    etLongitude.text as? Double,
-                    etLatitude.text as? Double
-                )
-            )
+            scope.launch {
+                withContext(Dispatchers.IO) {
+                    database?.taskDao()?.insert(
+                        Task(
+                            null,
+                            etTitle.text.toString(),
+                            etDesc.text.toString(),
+                            calendar?.time,
+                            etLongitude.text as? Double,
+                            etLatitude.text as? Double
+                        )
+                    )
+                }
+            }
         }
         showMessage("Задача сохранена")
         returnToTaskListFragment()
     }
 
-    private fun updateTask(id: Int) {
-        val task = database?.taskDao()?.findById(id)
+    private suspend fun updateTask(id: Int) {
+        val task = scope.async {
+            withContext(Dispatchers.IO) {
+                database?.taskDao()?.findById(id)
+            }
+        }.await()
         binding?.apply {
             if (isTaskCorrect()) {
                 binding?.run {
@@ -224,7 +243,11 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_details_task) {
                         calendar?.also {
                             task.date = it.time
                         }
-                        database?.taskDao()?.update(task)
+                        scope.launch {
+                            withContext(Dispatchers.IO) {
+                                database?.taskDao()?.update(task)
+                            }
+                        }
                         showMessage("Задача обновлена")
                         returnToTaskListFragment()
                     }
@@ -265,7 +288,6 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_details_task) {
         super.onDestroy()
         binding = null
         database = null
-
     }
 
     companion object {
